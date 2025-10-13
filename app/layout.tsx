@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,20 +30,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
-        <div className="flex">
-          {/** Sidebar */}
-          <div className="hidden md:block h-[100vh] w-[300px]">
-            <Sidebar/>
-          </div>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <Navbar />
+          <div className="flex">
+            {/** Sidebar */}
+            <div className="hidden md:block h-[100vh] w-[300px]">
+              <Sidebar/>
+            </div>
 
-          {/** Contents */}
-          <div className="p-5 w-full md:max-w-[1140px]">
-            {children}
+            {/** Contents */}
+            <div className="p-5 w-full md:max-w-[1140px]">
+              {children}
+            </div>
           </div>
-        </div>
-        {/** Toaster from sonner */}
-        <Toaster />
+          {/** Toaster from sonner */}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
